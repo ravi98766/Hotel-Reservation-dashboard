@@ -2,7 +2,7 @@
 ______________________________________________________________________________________________________________________
 <img width="901" height="503" alt="0Landingpage" src="https://github.com/user-attachments/assets/3ee2e523-657a-459f-8d23-74ad04502df5" />
 
-**Dashboard 1**
+## Dashboard 1
 <img width="900" height="503" alt="2 D1" src="https://github.com/user-attachments/assets/88fa1f32-c29d-4c0c-9c66-5350d7bfcfcb" />
 <img width="898" height="502" alt="1 D1" src="https://github.com/user-attachments/assets/18b1d5b9-ec34-4c4e-9061-cd642f13cf35" />
 
@@ -26,154 +26,114 @@ ________________________________________________________________________________
 <img width="899" height="507" alt="9 COLUMN  CHART- TOOLTIP" src="https://github.com/user-attachments/assets/217a19d6-c487-4f72-b547-e39d90a19221" />
 <img width="320" height="280" alt="4 tooltip" src="https://github.com/user-attachments/assets/166e097a-9b6b-4700-b63e-d0b2891097cd" />
 
-Here’s how you can present each visual with its tooltip insights:
+____________________________________________________________________________________________________________________________________
+**Revenue Performance**
 
-**1. Revenue Summary Panels**
+•	Overall Growth: Multiple months show revenue increases ranging from +$900K to +$3.8M, though one period reflects a decline of -$3.9M.
 
-•	Tooltip: “Multiple Month selected Went Up by +$2,423,851”
+•	Net vs Lost Revenue: Net revenue consistently hovers around $30M–$32M per channel, while lost revenue remains high at $18M–$20M per channel.
 
-•	Interpretation: Revenue is trending upward across selected months, but the growth is modest (~1%). This suggests stability but also room for aggressive conversion improvement.
+•	Lost Revenue Rate: Approximately 36% of potential revenue is lost, flagged as a critical issue due to low booking conversion.
+_____________________________________________________________________________________________________________________________________
+**Revenue by Nationality**
 
-**2. % Lost Revenue**
+•	Strong contributions from countries like USA, Canada, UK, Germany, India, China, Australia, Brazil, and Russia.
 
-•	Tooltip: “36.37% Needs Attention! Low booking Conversion”
+•	Example: Russia shows +1.4% growth in net revenue but also a +1.7% increase in lost revenue, highlighting mixed performance.
+_______________________________________________________________________________________________________________________________
+**Booking Channels**
 
-•	Interpretation: More than one third of potential revenue is lost due to poor booking conversion. This is the critical KPI that stakeholders should prioritize.
+•	Corporate, Direct, Online (Booking/Expedia), Walk-In channels all generate similar net revenue (~$30M–$32M).
 
-**3. Revenue Distribution Across Nationality (Map)**
+•	Lost revenue across channels is consistently high (~$18M–$20M), indicating inefficiencies across the board.
 
-•	Tooltip Example (Russia): 
+•	Corporate bookings show slight growth (+0.9% net revenue vs last month) but also rising lost revenue (+1.0%).
+_____________________________________________________________________________________________________________________________
+**Payment Methods**
 
-o	Net Revenue: $3,867,354 (+1.4% vs LM)
+•	Credit Card: ~$52M net revenue, ~$29M lost revenue. Slight improvement in net revenue (+1.0%) but lost revenue remains significant.
 
-o	Lost Revenue: $2,144,929 ( 1.7% vs LM)
+•	Cash: ~$52M net revenue, ~$25M lost revenue.
 
-•	Interpretation: Russia shows slight growth in realized revenue but also rising lost revenue. This dual trend highlights the need for targeted marketing or improved booking processes in that region.
+•	Bank Transfer: ~$30M net revenue, ~$30M lost revenue (a balanced but concerning ratio).
+_______________________________________________________________________________________________________________________
+**Key Insights**
 
-**4. Booking Channel: Net vs Lost Revenue**
+•	Conversion Challenge: The persistent 36% lost revenue signals urgent need for improving booking conversion strategies.
 
-•	Tooltip Example (Corporate): 
+•	Channel Inefficiency: Despite healthy net revenue, all booking channels suffer from parallel high lost revenue.
 
-o	Net Revenue: $31,678,861 (+0.9% vs LM)
+•	Payment Method Risks: Bank transfers show equal net and lost revenue, suggesting reliability issues in this mode.
 
-o	Lost Revenue: $17,744,089 (+1.0% vs LM)
+•	Nationality Trends: Certain markets (e.g., Russia) show growth in realized revenue but also rising lost revenue, requiring targeted interventions.
 
-•	Interpretation: Corporate bookings are strong but still losing nearly half of potential revenue. Similar patterns exist across Direct, Online, and Walk In channels — conversion optimization is a cross channel issue.
+-------------------------------------------------------------------------------------------------------------------------------
 
-**6. Payment Methods: Revenue Earned vs Lost**
-
-•	Tooltip Example (Credit Card): 
-
-o	Net Revenue: $51,946,986 (+1.0% vs LM)
-
-o	Lost Revenue: $29,861,045 ( 0.9% vs LM)
-
-**Dashboard 2:**
+## Dashboard 2
 <img width="904" height="502" alt="3 D2" src="https://github.com/user-attachments/assets/7f41f18b-38dc-43fb-ad10-ab8e69edb2f1" />
 <img width="900" height="500" alt="5 HEATMAP- RESERVED BOOKINGS WITH TOOLTIP" src="https://github.com/user-attachments/assets/788f7764-a45f-4d8d-9f9f-2b0b9fc2d291" />
 <img width="899" height="531" alt="6 HEATMAP- CANCELLED BOOKINGS WITH TOOLTIP" src="https://github.com/user-attachments/assets/07eaca0c-2c6c-4cac-86c7-35f73ee4768c" />
 <img width="320" height="280" alt="4 tooltip" src="https://github.com/user-attachments/assets/bec64327-9f29-4f64-8673-5949d5b5581b" />
 
-This project demonstrates how a BI dashboard can uncover hidden revenue opportunities and booking trends in the hospitality industry. Each visual is decoded with its tooltip insights, turning raw numbers into actionable business intelligence.
-______________________________________________________________________________________________________________________________________________________
-**1. Revenue Summary Panels**
+Here’s a consolidated summary of the most recent three Hotel Reservation Dashboards you uploaded, focusing on bookings, cancellations, and revenue performance:
+________________________________________
+**Bookings Overview**
 
-•	Tooltip: “Multiple Month selected Went Up by +$2,423,851”
+•	Total Bookings: 92K, showing strong growth: 
 
-•	Insight: Revenue is trending upward across selected months, but growth is modest (~1%). This signals stability but also highlights the need to tackle conversion issues to accelerate growth.
+o	+71.8% vs Last Year (54K)
 
-**2. % Lost Revenue**
+o	+1.0% vs Last Month (91K)
 
-•	Tooltip: “36.37% Needs Attention! Low booking Conversion”
+•	Seasonal Trends: 
 
-•	Insight: More than one third of potential revenue is lost due to poor booking conversion. This is the critical KPI for management focus.
+o	Summer: ~15.2K reserved, ~7.4K cancelled
 
-**3. Revenue Distribution Across Nationality (Map)**
+o	Winter: ~14.8K reserved, ~8.1K cancelled
 
-•	Tooltip Example (Russia): 
+o	Spring: ~13K–13.9K reserved, ~9.4K cancelled
 
-o	Net Revenue: $3,867,354 (+1.4% vs LM)
+o	Autumn: ~13K reserved, ~10K cancelled (highest cancellation ratio)
+________________________________________
+**Yearly & Monthly Trends**
 
-o	Lost Revenue: $2,144,929 ( 1.7% vs LM)
+•	Yearly Cancellation vs Reservation: 
 
-•	Insight: Russia shows slight growth in realized revenue but also rising lost revenue. Similar country level insights help target marketing and booking process improvements.
+o	2022: Very low reservations (~2K) but very high cancellations (~25K).
 
-**4. Booking Channel: Net vs Lost Revenue**
+o	2023: ~24K reserved vs ~25K cancelled (almost equal).
 
-•	Tooltip Example (Corporate): 
+o	2024: ~30K reserved vs ~9K cancelled (major improvement).
 
-o	Net Revenue: $31,678,861 (+0.9% vs LM)
+•	Top Reservation Months: June (~5.3K) and July (~5.6K).
 
-o	Lost Revenue: $17,744,089 (+1.0% vs LM)
+•	Top Cancellation Months: February (~1.9K) and June (~2K).
 
-•	Insight: Corporate bookings are strong but nearly half of potential revenue is lost. Direct, Online, and Walk In channels show similar leakage — conversion optimization is a cross channel issue.
+•	Monthly Line Graphs: Show cancellations peaking early in the year, while reservations rise mid-year.
+________________________________________
+**Revenue Insights**
 
-**5. Payment Methods: Revenue Earned vs Lost**
+•	Revenue Realized: 
 
-•	Tooltip Example (Credit Card): 
+o	Net Revenue ranges around $1.9M–$2M.
 
-o	Net Revenue: $51,946,986 (+1.0% vs LM)
+o	Mixed trends: one dashboard shows a +19.9% increase vs last month, another shows a -4.6% decline.
 
-o	Lost Revenue: $29,861,045 ( 0.9% vs LM)
+•	Revenue Lost: 
 
-•	Insight: Credit cards generate the highest net revenue, but lost revenue remains significant. Cash and bank transfers also show leakage, pointing to systemic drop off in payment completion.
+o	Fluctuates between $675K–$901K.
 
-**6. Bookings vs Last Year & Last Month**
+o	In some months, lost revenue rose sharply (+31.8%), while in others it declined (-15%), showing inconsistent booking retention.
+________________________________________
+**Key Consolidated Insights**
 
-•	Tooltip: “Total Bookings: 92K | LY: 54K (+71.8%) | LM: 91K (+1.0%)”
+•	Bookings are growing steadily, with strong year-over-year improvement.
 
-•	Insight: Strong year over year growth, but monthly growth is flat. Seasonal campaigns may be needed to sustain momentum.
+•	Cancellations remain a major challenge, especially in Autumn and early months (Feb, Jan, Jun).
 
-**7. Yearly Cancellation vs Reservations**
+•	Revenue performance is volatile: while net revenue sometimes improves, lost revenue spikes in parallel, eroding gains.
 
-•	Tooltip Example (2023): 
-
-o	Reserved: 24K | Cancelled: 25K
-
-•	Insight: Cancellation rates were nearly equal to reservations in 2023, showing a major operational challenge. In 2024, cancellations dropped sharply, indicating corrective measures worked.
-
-**8. Seasonal Trends**
-
-•	Tooltip Example (Summer): 
-
-o	Reserved: 15,253 | Cancelled: 7,445
-
-•	Insight: Summer has the highest reservations but also high cancellations. Winter and Spring show similar patterns. Seasonality is a key driver of booking behavior.
-
-
-**9. Top Months for Reservations & Cancellations**
-
-•	Tooltip: 
-
-o	Reservations: June (5,312K), July (5,613K)
-
-o	Cancellations: February (1,967K), June (2,027K)
-
-•	Insight: June is both a peak reservation and peak cancellation month — a paradox that signals demand but also dissatisfaction or drop off.
-
-
-**10. Monthly Cancellation vs Reservations (Line Chart)**
-
-•	Tooltip: Trends from Jan 2023 – Jul 2024
-
-•	Insight: Clear seasonality with spikes in cancellations during peak months. This helps forecast demand and plan retention strategies.
-
-**11. Heatmap (Bookings by Week & Month)**
-
-•	Tooltip: Darker blue = higher booking activity
-
-•	Insight: Weekends and summer months show the highest booking density. This visualization helps optimize staffing and promotions.
-
-**12. Revenue Realized vs Lost (Detailed Panels)**
-
-•	Tooltip Example: 
-
-o	Net Revenue: $1,911,655 (+19.9% vs LM)
-
-o	Lost Revenue: $675,087 ( 15.0% vs LM)
-
-•	Insight: Revenue realized is growing faster than lost revenue, showing operational improvements. However, leakage remains a concern.
-
+•	Positive trend in 2024: reservations are rising and cancellations dropping compared to prior years, signaling progress.
 __________________________________________________________________________________________________________________________________________
 ## DAX
 ```
