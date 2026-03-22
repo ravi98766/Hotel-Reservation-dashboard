@@ -174,4 +174,372 @@ o	Lost Revenue: $675,087 ( 15.0% vs LM)
 
 •	Insight: Revenue realized is growing faster than lost revenue, showing operational improvements. However, leakage remains a concern.
 
-__________________________________________________________________________________________________________________________________________________________________
+__________________________________________________________________________________________________________________________________________
+## DAX
+```
+Calendar = 
+
+    VAR _MinYear = YEAR(MIN('Dataset'[Booking Date]))
+    VAR _MaxYear = YEAR(MAX('Dataset'[Booking Date]))
+    RETURN
+    ADDCOLUMNS(
+        FILTER(
+        CALENDARAUTO(),
+        YEAR([Date])>= _MinYear && 
+        YEAR([Date])<= _MaxYear
+        ),
+        "Year", YEAR([Date]),
+        "Month Number", MONTH([Date]),
+        "Month Long", FORMAT([Date],"mmmm"),
+        "Month Short", FORMAT([Date],"MMM"),
+        "Qtr", "Q" & QUARTER([Date]),
+        "Year Qtr", YEAR([Date]) & " Q" & QUARTER([Date]),
+        "Days",DAY([Date]),
+        "Week Number", WEEKDAY([Date],2),
+        "Weekday Long", FORMAT([Date], "DDDD"),
+        "Weekday Short", FORMAT([Date], "DDD"),
+        "WeekType", IF(WEEKDAY([Date],2)<6,"Weekday","Weekend"),
+        "End of Month", EOMONTH([Date],0),
+        "Start of Month", EOMONTH([Date],-1)+1,
+
+        -- This is for some Season,
+        "Season",
+        SWITCH(
+            TRUE(),
+            MONTH([Date]) IN { 12, 1,2}, "Winter",
+            MONTH([Date]) IN { 3, 4,5}, "Spring",
+            MONTH([Date]) IN { 6, 7,8}, "Summer",
+            MONTH([Date]) IN { 9, 10,11}, "Autumn"
+        ),
+
+        -- Those are some Holidays in my country. You can match the date to the holidays in your Country.
+        "Is New Year's Day", IF(MONTH([Date]) = 1 &&
+        DAY([Date]) = 1, TRUE(), FALSE()),
+        "Is Labour Day", IF(MONTH([Date]) = 5 &&
+        DAY([Date]) = 1, TRUE(), FALSE()),
+        "Is Democracy Day",IF(MONTH([Date]) = 6 &&
+        DAY([Date]) = 12, TRUE(), FALSE()),
+        "Is Nigerian Independence Day",IF(MONTH([Date]) = 10 &&
+        DAY([Date]) = 1, TRUE(), FALSE()),
+        "Is Christmas Day",IF(MONTH([Date]) = 12 &&
+        DAY([Date]) = 25, TRUE(), FALSE()),
+        "Is Boxing Day", IF(MONTH([Date]) = 2 &&
+        DAY([Date]) = 26, TRUE(), FALSE())
+
+    )
+```
+```
+Cancelled Bookings = CALCULATE([Total reservations], 'Dataset'[Cancellation Status]="Yes")
+```
+```
+Caption Cancelled bookings = 
+CONCATENATEX(
+    TOPN(
+        2,
+        SUMMARIZE(
+            FILTER('Calendar', [Cancelled Bookings] <> BLANK()),
+            'Calendar'[Month Short],
+            "cancelled Reservations", [Cancelled Bookings]
+        ),
+        [cancelled Reservations], ASC
+    ),
+    'Calendar'[Month Short] & " | " & FORMAT([cancelled Reservations], "#,##K"),
+    UNICHAR(10), FORMAT([cancelled Reservations], "#,##K")
+)
+```
+```
+Caption Lost Revenue = 
+VAR _pct=[pct of lost Revenue]
+RETURN
+SWITCH(
+    TRUE(),
+    _pct<=0.05,"Excellent! Outstanding Booking Conversion",
+    _pct<=0.10,"Good! High booking Booking",
+    _pct<=0.20,"Fair! Consider Improving",
+    "Needs Attention! Low booking Conversion"
+    )
+```
+```
+Caption Reserved bookings = 
+CONCATENATEX(
+    TOPN(
+        2,
+        SUMMARIZE(
+            FILTER('Calendar', [Reserved Bookings] <> BLANK()),
+            'Calendar'[Month Short],
+            "checkin Reservations", [Reserved Bookings]
+        ),
+        [checkin Reservations], DESC
+    ),
+    'Calendar'[Month Short] & " | " & FORMAT([checkin Reservations], "#,##K"),
+    UNICHAR(10), FORMAT([checkin Reservations], "#,##K")
+)
+```
+```
+CF Caption Lost Revenue = 
+VAR _pct=[pct of lost Revenue]
+RETURN
+SWITCH(
+    TRUE(),
+    _pct<=0.05,"#4caf50",
+    _pct<=0.10,"#bbc4a",
+    _pct<=0.20,"#ffc107",
+    "#d64550"
+    )
+```
+```
+CF MoM Booking = 
+VAR _MoMchange= DIVIDE([Total reservations]-[LM Bookings],[LM Bookings])
+
+RETURN
+IF(_MoMchange>0, 1,0)
+```
+```
+CF YoY Booking = 
+VAR _MoMchange= DIVIDE([Total reservations]-[LY Bookings],[LY Bookings])
+
+RETURN
+IF(_MoMchange>0, 1,0)
+```
+```
+LM Bookings = CALCULATE([Total reservations], DATEADD('Calendar'[Date],-1,MONTH))
+```
+```
+LY Bookings = CALCULATE([Total reservations], DATEADD('Calendar'[Date],-1,YEAR))
+```
+```
+MoM change Booking = 
+VAR _Arrowup= UNICHAR(10548)
+VAR _Arrowdown= UNICHAR(10549)
+VAR _MoMchange= DIVIDE([Total reservations]-[LM Bookings],[LM Bookings])
+VAR _Format= FORMAT(_MoMchange,"0.0 %")
+
+RETURN
+IF(_MoMchange>0, _Arrowup& "+" &_Format,_Arrowdown&_Format)
+```
+```
+pct of lost Revenue = 
+ VAR _pct= DIVIDE([Lost Revenue], [Gross Revenue])
+ RETURN
+ IF(_pct=BLANK(),0, _pct)
+```
+```
+Reserved Bookings = CALCULATE([Total reservations], 'Dataset'[Cancellation Status]="No")
+```
+```
+Tooltip Title 01 = 
+VAR _nationality= SELECTEDVALUE('Dataset'[Nationality])
+VAR _bookingchannel= SELECTEDVALUE('Dataset'[Booking Channel])
+VAR _paymentmethod= SELECTEDVALUE('Dataset'[Payment Method])
+RETURN
+SWITCH(
+    TRUE(),
+    _nationality<>BLANK(), _nationality,
+    _bookingchannel<>BLANK(),_bookingchannel,
+    _paymentmethod<> BLANK(),_paymentmethod,
+    "Other"
+    )
+```
+```
+Tooltip Title 02 = 
+VAR _nationality= SELECTEDVALUE('Dataset'[Nationality])
+VAR _bookingchannel= SELECTEDVALUE('Dataset'[Booking Channel])
+VAR _paymentmethod= SELECTEDVALUE('Dataset'[Payment Method])
+RETURN
+SWITCH(
+    TRUE(),
+    _nationality<>BLANK(), "Customer nationality:",
+    _bookingchannel<>BLANK(),"Customer Booking channel:",
+    _paymentmethod<> BLANK(),"Customer payment method:",
+    "Other"
+    )
+```
+```
+Total reservations = COUNTROWS('Dataset')
+```
+```
+YoY Change Bookings = 
+VAR _Arrowup= UNICHAR(10548)
+VAR _Arrowdown= UNICHAR(10549)
+VAR _MoMchange= DIVIDE([Total reservations]-[LY Bookings],[LY Bookings])
+VAR _Format= FORMAT(_MoMchange,"0.0 %")
+
+RETURN
+IF(_MoMchange>0, _Arrowup& "+" &_Format,_Arrowdown&_Format)
+```
+
+**Gross revenue**
+```
+CF Flip Card = 
+VAR _GrossRevenue=[Gross Revenue]
+VAR _LM = [LM Gross Revenue]
+RETURN
+IF(_GrossRevenue>_LM, 1,0)
+```
+```
+CF Gross Revenue = 
+VAR _MoMchange= DIVIDE([Gross Revenue]-[LM Gross Revenue],[LM Gross Revenue])
+
+RETURN
+IF(_MoMchange>0, 1,0)
+```
+```
+Gross Revenue = sumx('Dataset', 'Dataset'[Total Amount ($)]+'Dataset'[Extra Services Costs ($)])
+```
+```
+Gross Revenue Flip Card = 
+VAR _GrossRevenue= [Gross Revenue]
+VAR _LM= [LM Gross Revenue]
+VAR _Variance= _GrossRevenue-_LM
+VAR _Format= FORMAT(_Variance,"$#,##")
+
+RETURN
+IF(_GrossRevenue>_LM, "+"& _Format,"-"&_Format)
+```
+```
+LM Gross Revenue = CALCULATE([Gross Revenue], DATEADD('Calendar'[Date],-1, MONTH))
+```
+```
+MoM Change Gross Revenue = 
+VAR _Arrowup= UNICHAR(10548)
+VAR _Arrowdown= UNICHAR(10549)
+VAR _MoMchange= DIVIDE([Gross Revenue]-[LM Gross Revenue],[LM Gross Revenue])
+VAR _Format= FORMAT(_MoMchange,"0.0 %")
+
+RETURN
+IF(_MoMchange>0, _Arrowup& "+" &_Format,_Arrowdown&_Format)
+```
+```
+Title GR = 
+VAR _selectedmonth= SELECTEDVALUE('Calendar'[Month Short])
+RETURN
+IF(_selectedmonth<>BLANK(), 
+_selectedmonth  & " Gross Revenue",
+ "Multiple Month selected"
+)
+```
+```
+Title GR2 = 
+VAR _MoMchange= DIVIDE([Gross Revenue]-[LM Gross Revenue],[LM Gross Revenue])
+
+RETURN
+IF(_MoMchange>0,"Went Up ▲ by","Went down ▼ by")
+```
+
+**Lost Revenue**
+
+```
+CF Flip Lost revenue Card = 
+VAR _LostRevenue=[Lost Revenue]
+VAR _LM = [LM Lost Revenue]
+RETURN
+IF(_LostRevenue>_LM, 1,0)
+```
+```
+CF Lost Revenue = 
+VAR _MoMchange= DIVIDE([Lost Revenue]-[LM Lost Revenue],[LM Lost Revenue])
+
+RETURN
+IF(_MoMchange>0, 1,0)
+```
+```
+LM Lost Revenue = CALCULATE([Lost Revenue], DATEADD('Calendar'[Date],-1, MONTH))
+```
+```
+Lost Revenue = CALCULATE([Gross Revenue], 'Dataset'[Cancellation Status]="Yes")
+```
+```
+Lost Revenue Flip Card = 
+VAR _LostRevenue= [Lost Revenue]
+VAR _LM= [LM Lost Revenue]
+VAR _Variance= _LostRevenue-_LM
+VAR _Format= FORMAT(_Variance,"$#,##")
+
+RETURN
+IF(_LostRevenue>_LM, "+"& _Format,"-"&_Format)
+```
+
+```
+MoM Change Lost Revenue = 
+VAR _Arrowup= UNICHAR(10548)
+VAR _Arrowdown= UNICHAR(10549)
+VAR _MoMchange= DIVIDE([Lost Revenue]-[LM Lost Revenue],[LM Lost Revenue])
+VAR _Format= FORMAT(_MoMchange,"0.0 %")
+
+RETURN
+IF(_MoMchange>0, _Arrowup& "+" &_Format,_Arrowdown&_Format)
+```
+```
+Title LR = 
+VAR _selectedmonth= SELECTEDVALUE('Calendar'[Month Short])
+RETURN
+IF(_selectedmonth<>BLANK(), 
+_selectedmonth  & " Lost Revenue",
+ "Multiple Month selected"
+)
+```
+```
+Title LR2 = 
+VAR _MoMchange= DIVIDE([Lost Revenue]-[LM Lost Revenue],[LM Lost Revenue])
+
+RETURN
+IF(_MoMchange>0,"Went Up ▲ by","Went down ▼ by")
+```
+**Net Revenue**
+```
+CF Flip net revenue Card = 
+VAR _NetRevenue=[Net Revenue]
+VAR _LM = [LM Net Revenue]
+RETURN
+IF(_NetRevenue>_LM, 1,0)
+```
+```
+CF Net Revenue = 
+VAR _MoMchange= DIVIDE([Net Revenue]-[LM Net Revenue],[LM Net Revenue])
+
+RETURN
+IF(_MoMchange>0, 1,0)
+```
+```
+LM Net Revenue = CALCULATE([Net Revenue], DATEADD('Calendar'[Date],-1, MONTH))
+```
+```
+MoM Change Net Revenue = 
+VAR _Arrowup= UNICHAR(10548)
+VAR _Arrowdown= UNICHAR(10549)
+VAR _MoMchange= DIVIDE([Net Revenue]-[LM Net Revenue],[LM Net Revenue])
+VAR _Format= FORMAT(_MoMchange,"0.0 %")
+
+RETURN
+IF(_MoMchange>0, _Arrowup& "+" &_Format,_Arrowdown&_Format)
+```
+```
+Net Revenue = CALCULATE([Gross Revenue], 'Dataset'[Cancellation Status]="No")
+```
+```
+Net Revenue Flip Card = 
+VAR _netRevenue= [Net Revenue]
+VAR _LM= [LM Net Revenue]
+VAR _Variance= _netRevenue-_LM
+VAR _Format= FORMAT(_Variance,"$#,##")
+
+RETURN
+IF(_netRevenue>_LM, "+"& _Format,"-"&_Format)
+```
+```
+Title NR = 
+VAR _selectedmonth= SELECTEDVALUE('Calendar'[Month Short])
+RETURN
+IF(_selectedmonth<>BLANK(), 
+_selectedmonth  & " Net Revenue",
+ "Multiple Month selected"
+)
+```
+```
+Title NR2 = 
+VAR _MoMchange= DIVIDE([Net Revenue]-[LM Net Revenue],[LM Net Revenue])
+
+RETURN
+IF(_MoMchange>0,"Went Up ▲ by","Went down ▼ by")
+```
+
